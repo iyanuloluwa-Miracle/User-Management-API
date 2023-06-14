@@ -1,5 +1,6 @@
 // controllers/users.js
 const db = require('../models/db');
+const jwt = require('jsonwebtoken');
 
 
 // Get all users
