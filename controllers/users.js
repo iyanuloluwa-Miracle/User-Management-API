@@ -2,7 +2,7 @@
 const db = require('../models/db');
 const jwt = require('jsonwebtoken');
 const { generateToken } = require('../utils/authUtils');
-
+const bcrypt = require('bcrypt');
 
 // Get all users
 exports.getUsers = (req, res) => {
@@ -16,7 +16,6 @@ exports.getUsers = (req, res) => {
   });
 };
 
-
 exports.createUser = (req, res) => {
   const { username, email, password } = req.body;
 
@@ -24,7 +23,7 @@ exports.createUser = (req, res) => {
   const hashedPassword = bcrypt.hashSync(password, 10);
 
   // Create the user in the database
-  const sql = `INSERT INTO users (username, email, password) VALUES (?, ?, ?)`;
+  const sql = `INSERT INTO user (username, email, password) VALUES (?, ?, ?)`;
   db.query(sql, [username, email, hashedPassword], (err, result) => {
     if (err) {
       console.error(err);

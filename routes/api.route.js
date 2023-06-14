@@ -14,7 +14,7 @@ router.post('/signup', authControl.signupUser);
 router.post('/login', authControl.loginUser);
 
 // User routes
-router.post('/', authenticateToken, userController.createUser);
+router.post('/create', authenticateToken, userController.createUser);
 router.get('/users', authenticateToken, userController.getUsers);
 router.get('/:id',authenticateToken, userController.getUserById);
 router.put('/:id',authenticateToken, userController.updateUser);
