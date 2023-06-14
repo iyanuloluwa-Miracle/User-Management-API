@@ -8,14 +8,17 @@ router.get('/', async (req, res, next) => {
   res.send({ message: 'Ok api is working 🚀' });
 });
 
-// User routes
-router.post('/', userController.createUser);
+
+// Authentication
 router.post('/signup', authControl.signupUser);
 router.post('/login', authControl.loginUser);
-router.get('/', userController.getUsers);
-router.get('/:id', userController.getUserById);
-router.put('/:id',  userController.updateUser);
-router.delete('/:id', userController.deleteUser);
+
+// User routes
+router.post('/', authenticateToken, userController.createUser);
+router.get('/users', authenticateToken, userController.getUsers);
+router.get('/:id',authenticateToken, userController.getUserById);
+router.put('/:id',authenticateToken, userController.updateUser);
+router.delete('/:id',authenticateToken, userController.deleteUser);
 
 
 
