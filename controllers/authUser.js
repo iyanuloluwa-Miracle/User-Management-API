@@ -1,7 +1,9 @@
 // Login a user
+const { generateToken } = require('../utils/authUtils');
 const bcrypt = require('bcrypt');
 const db = require('../models/db');
 const jwt = require('jsonwebtoken');
+const jwtSecretKey = process.env.JWT_SECRET_KEY;
 
 exports.signupUser = (req, res) => {
   const { email, password } = req.body;
@@ -64,14 +66,21 @@ exports.loginUser = (req, res) => {
           return res.status(401).json({ message: 'Invalid email or password' });
         }
   
-        const token = jwt.sign({ id: user.id }, 'your_secret_key', {
-          expiresIn: '1h',
-        });
+        const token = generateToken({ id: user.id });
   
-        return res.status(200).json({ token });
+        return res.status(200).json({ message: 'Successfully logged in', token });
       } catch (error) {
         console.error(error);
         return res.status(500).json({ message: 'Internal server error' });
       }
     });
 };
+
+
+  
+  
+  
+  
+  
+  
+  

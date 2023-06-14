@@ -1,20 +1,29 @@
 // middleware/authenticate.js
 const jwt = require('jsonwebtoken');
+const jwtSecretKey = process.env.JWT_SECRET_KEY;
 
-const authenticate = (req, res, next) => {
-  const token = req.header('Authorization')?.replace('Bearer ', '');
-  if (!token) {
-    return res.status(401).json({ message: 'Access denied. No token provided.' });
-  }
-
-  try {
-    const decoded = jwt.verify(token, 'your_secret_key');
-    req.user = decoded;
-    next();
-  } catch (error) {
-    console.error(error);
-    return res.status(403).json({ message: 'Invalid token' });
-  }
+exports.generateToken = (payload) => {
+  return jwt.sign(payload, jwtSecretKey, {
+    expiresIn: '1h',
+  });
 };
 
-module.exports = authenticate;
+exports.authenticateToken = (req, res, next) => {
+  const authHeader = req.headers['authorization'];
+  const token = authHeader && authHeader.split(' ')[1];
+
+  if (!token) {
+    return res.status(401).json({ message: 'Unauthorized' });
+  }
+
+  jwt.verify(token, jwtSecretKey, (err, user) => {
+    if (err) {
+      console.error(err);
+      return res.status(403).json({ message: 'Forbidden' });
+    }
+
+    req.user = user;
+    next();
+  });
+};
+

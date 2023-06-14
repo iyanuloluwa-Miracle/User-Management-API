@@ -1,29 +1,24 @@
-const router = require('express').Router();
-const {
-  getUsers,
-  createUser,
-  getUserById,
-  updateUser,
-  deleteUser,
-} = require('../controllers/users');
-const {
-  
-  loginUser, signupUser
-
-} = require('../controllers/authusers')
-const authenticate = require('../utils/authUtils');
+const express = require('express');
+const router = express.Router();
+const authControl = require('../controllers/authUser');
+const userController = require('../controllers/users')
+const { authenticateToken } = require('../utils/authUtils');
 
 router.get('/', async (req, res, next) => {
   res.send({ message: 'Ok api is working 🚀' });
 });
 
 // User routes
-router.post('/', authenticate, createUser);
-router.post('/signup', signupUser);
-router.post('/login', authenticate, loginUser);
-router.get('/', authenticate, getUsers);
-router.get('/:id', authenticate, getUserById);
-router.put('/:id', authenticate, updateUser);
-router.delete('/:id', authenticate, deleteUser);
+router.post('/', userController.createUser);
+router.post('/signup', authControl.signupUser);
+router.post('/login', authControl.loginUser);
+router.get('/', userController.getUsers);
+router.get('/:id', userController.getUserById);
+router.put('/:id',  userController.updateUser);
+router.delete('/:id', userController.deleteUser);
+
+
+
+
 
 module.exports = router;
