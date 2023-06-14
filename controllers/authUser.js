@@ -1,4 +1,4 @@
-// Login a user
+
 const { generateToken } = require('../utils/authUtils');
 const bcrypt = require('bcrypt');
 const db = require('../models/db');
@@ -32,7 +32,7 @@ exports.signupUser = (req, res) => {
         }
 
         // Generate a token for the newly registered user
-        const token = jwt.sign({ id: result.insertId }, 'your_secret_key', {
+        const token = jwt.sign({ id: result.insertId }, jwtSecretKey, {
           expiresIn: '1h',
         });
 

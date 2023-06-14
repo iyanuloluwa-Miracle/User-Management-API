@@ -1,12 +1,10 @@
-// controllers/users.js
+
 const db = require('../models/db');
-const jwt = require('jsonwebtoken');
-const { generateToken } = require('../utils/authUtils');
 const bcrypt = require('bcrypt');
 
 // Get all users
 exports.getUsers = (req, res) => {
-  const sql = 'SELECT * FROM users';
+  const sql = 'SELECT * FROM user';
   db.query(sql, (err, result) => {
     if (err) {
       console.error(err);
@@ -30,10 +28,8 @@ exports.createUser = (req, res) => {
       return res.status(500).json({ message: 'Internal server error' });
     }
 
-    // Generate a token for the newly registered user
-    const token = generateToken({ id: result.insertId });
 
-    return res.status(201).json({ message: 'User created successfully', token });
+    return res.status(201).json({ message: 'User created successfully',});
   });
 };
 
@@ -41,7 +37,7 @@ exports.createUser = (req, res) => {
 // Get a user by ID
 exports.getUserById = (req, res) => {
   const { id } = req.params;
-  const sql = 'SELECT * FROM users WHERE id = ?';
+  const sql = 'SELECT * FROM user WHERE id = ?';
   db.query(sql, id, (err, result) => {
     if (err) {
       console.error(err);
@@ -58,7 +54,7 @@ exports.getUserById = (req, res) => {
 exports.updateUser = (req, res) => {
   const { id } = req.params;
   const { username, email } = req.body;
-  const sql = 'UPDATE users SET username = ?, email = ? WHERE id = ?';
+  const sql = 'UPDATE user SET username = ?, email = ? WHERE id = ?';
   db.query(sql, [username, email, id], (err, result) => {
     if (err) {
       console.error(err);
@@ -74,7 +70,7 @@ exports.updateUser = (req, res) => {
 // Delete a user
 exports.deleteUser = (req, res) => {
   const { id } = req.params;
-  const sql = 'DELETE FROM users WHERE id = ?';
+  const sql = 'DELETE FROM user WHERE id = ?';
   db.query(sql, id, (err, result) => {
     if (err) {
       console.error(err);
