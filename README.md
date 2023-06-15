@@ -12,10 +12,10 @@ The base URL for all API endpoints is: http://localhost:3000/api
 Most of the API endpoints require authentication using JSON Web Tokens (JWT). To authenticate a request, include the JWT in the `Authorization` header as follows:
 
 
-```json
-
+```
 
 Authorization: Bearer `<token>`
+
 ```
 
 Replace `<token>` with a valid JWT obtained through the login or signup process.
@@ -24,7 +24,7 @@ Replace `<token>` with a valid JWT obtained through the login or signup process.
 
 ### User Registration
 
-```json
+```
 
 
 POST /signup
