@@ -69,10 +69,77 @@ Request Body:
 * `500 Internal Server Error:` Server encountered an error.
 
 
-### Get User by ID
+## Get User by ID
 
 ```
 GET /users/:id
 ```
 
 Retrieve user information by ID.
+
+### Request Parameters:
+
+* id (number): User ID
+  
+#### Response: 
+
+
+* `200 OK:` User found. Returns the user data.
+* `401 Unauthorized:` Invalid or missing JWT.
+* `404 Not Found:` User with the provided ID not found.
+* `500 Internal Server Error:` Server encountered an error.
+
+## Update User
+
+```  
+PUT /users/:id
+ ```
+
+Update user information by ID.
+
+### Request Parameters:
+
+* `id`(number): User ID
+
+#### Request Body
+
+```json
+{
+  "username": "updated_user123",
+  "email": "updated_user123@example.com"
+}
+```
+
+#### Response: 
+
+
+* `200 OK:` User found. Returns the user data.
+* `401 Unauthorized:` Invalid or missing JWT.
+* `404 Not Found:` User with the provided ID not found.
+* `500 Internal Server Error:` Server encountered an error.
+
+
+
+## Delete User
+
+```
+DELETE /users/:id
+```
+
+Delete a user by ID.
+
+### Request Parameters:
+
+* `id`(number): User ID
+
+#### Response: 
+
+
+* `200 OK:` User found. Returns the user data.
+* `401 Unauthorized:` Invalid or missing JWT.
+* `404 Not Found:` User with the provided ID not found.
+* `500 Internal Server Error:` Server encountered an error.
+
+## Conclusion
+
+The User Management API provides endpoints for user registration, login, retrieval, update, and deletion. All protected endpoints require authentication using JWT. Please make sure to include the JWT in the Authorization header for authorized requests.
