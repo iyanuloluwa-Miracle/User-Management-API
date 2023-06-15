@@ -39,9 +39,9 @@ Request Body:
 ```
 #### Response
 
-* 201 Created: User registration successful. Returns the generated JWT.
-* 400 Bad Request: Invalid request body.
-* 500 Internal Server Error: Server encountered an error.
+* `201 Created:` User registration successful. Returns the generated JWT.
+* `400 Bad Request:` Invalid request body.
+* `500 Internal Server Error:` Server encountered an error.
 
 ### User Login
 
@@ -63,6 +63,16 @@ Request Body:
 
 #### Response
 
-* 201 Created: User registration successful. Returns the generated JWT.
-* 400 Bad Request: Invalid request body.
-* 500 Internal Server Error: Server encountered an error.
+* `200 OK:` User login successful. Returns the generated JWT.
+* `401 Unauthorized:` Invalid email or password.
+* `404 Not Found:` User with the provided email not found.
+* `500 Internal Server Error:` Server encountered an error.
+
+
+### Get User by ID
+
+```
+GET /users/:id
+```
+
+Retrieve user information by ID.
