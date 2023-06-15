@@ -1,10 +1,12 @@
-// config/db.js
+
 const mysql = require('mysql');
+const password = process.env.password
+const user = process.env.user
 
 const db = mysql.createConnection({
   host: 'localhost',
-  user: 'root',
-  password: 'Iremide.nexzy10',
+  user: user,
+  password: password,
   database: 'my_app_db',
 });
 
