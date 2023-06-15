@@ -48,3 +48,21 @@ Request Body:
 ```
 POST /login
 ```
+
+Login an existing user with the provided email and password.
+
+Request Body:
+
+```json
+{
+  
+  "email": "user123@example.com",
+  "password": "password123"
+}
+```
+
+#### Response
+
+* 201 Created: User registration successful. Returns the generated JWT.
+* 400 Bad Request: Invalid request body.
+* 500 Internal Server Error: Server encountered an error.
